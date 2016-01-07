@@ -1,0 +1,18 @@
+{
+    "contents" : "\n# 2 -----------------------------------------------------------------------\n\nx <- 70\nmu <- 80\nsigma <- 10\npnorm(x, mu, sigma)\n\n\n# 3 -----------------------------------------------------------------------\n\nx <- 0.95\nmu <- 1100\nsigma <- 75\nqnorm(x, mu,sigma)\n\n\n# 4 -----------------------------------------------------------------------\n\nn <- 100\nsigma2 <- sigma/sqrt(n)\nqnorm(x, mu, sigma2)\n# 5 -----------------------------------------------------------------------\n\nx <- 1:4\np <- x/sum(x)\ntemp <- rbind(x, p)\nrownames(temp) <- c(\"X\", \"Prob\")\ntemp\n\n\n# 8 -----------------------------------------------------------------------\n\nt <- 3\nlmd <- 5\nx <- 10\nppois(x, lambda = t*lmd)\n",
+    "created" : 1452087118376.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "274327446",
+    "id" : "37E768FD",
+    "lastKnownWriteTime" : 1452122061,
+    "path" : "~/Desktop/Statistical Inference/quiz1.R",
+    "project_path" : "quiz1.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

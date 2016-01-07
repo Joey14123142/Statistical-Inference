@@ -1,0 +1,17 @@
+{
+    "contents" : "---\ntitle: \"QSAR Analysis\"\noutput: html_document\n---\n\n```{r}\nstart <- function(pkg){\n  npkg <- pkg[!(pkg %in% installed.packages()[,\"Package\"])]\n  if (length(npkg))\n    install.packages(npkg, dependencies = TRUE)\n  lapply(pkg, require, character.only=TRUE)\n}\n\npkgs <- c(\"QSARdata\",'caret','ggplot2','pls')\nstart(pkgs)\n```\n\n\n## Load data\n\n```{r}\ndata(AquaticTox)\nhead(AquaticTox_Outcome)\ndescriptors<-AquaticTox_QuickProp\ndata<-cbind(descriptors,AquaticTox_Outcome$Activity)\nhead(data)\ndim(data)\ncolnames(data)[51]<- \"Activity\"\nsum(is.na(data))\n```\n\n## Cleaning\n```{r}\ndata<-na.omit(data)\n\ndescs <- data[, !apply(data, 2, function(x) any(is.na(x)) )]\n\ndescs <- descs[, !apply( descs, 2, function(x) length(unique(x)) == 1 )]\n\nr2 <- which(cor(descs[2:50])^2 > .29, arr.ind=TRUE)\n\nr2 <- r2[ r2[,1] > r2[,2] , ]\nd <- descs[, -unique(r2[,2])]\n```\n\n\n## Preprocessing\n```{r}\nTran <- preProcess(d[,-1],method = \"BoxCox\")\ndata <-predict(Tran,d[,-1])\n\nind<-sample(2,nrow(data),replace=TRUE,prob=c(0.8,0.2))\ntraining<-data[ind==1,-1]\ntest<-data[ind==2,-1]\n```\n\n\n## Linear least squares\n```{r}\nlm.fit <- lm(Activity ~., data = training)\nsummary(lm.fit)\nnames(lm.fit)\ncoef(lm.fit)\nconfint(lm.fit)\npredict(lm.fit, test, interval = \"confidence\")  # or interval = \"prediction\"\n\nplot(predict(lm.fit), residuals(lm.fit))\nplot(predict(lm.fit), rstudent(lm.fit))\nplot(hatvalues(lm.fit))\nwhich.max(hatvalues(lm.fit))\n```\n\n\n## PLS\n```{r}\npls.fit <- plsr(Activity ~., data = training, scale = TRUE, validation = \"CV\")\nsummary(pls.fit) # The lowest cross-validation error occurs when M=5\nvalidationplot(pls.fit, val.type = \"MSEP\")\npls.pred <- predict(pls.fit, test, ncomp = 5)\nmean((pls.pred-test$Activity)^2)\n\npls.all <- plsr(Activity ~., data = data, scale = TRUE, ncomp = 5)\nsummary(pls.all)\n```\n\n\n",
+    "created" : 1452139196491.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1507231731",
+    "id" : "79FE0B4C",
+    "lastKnownWriteTime" : 1452142055,
+    "path" : "~/Desktop/chemo/PredictiveModelingR/Activity.Rmd",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}

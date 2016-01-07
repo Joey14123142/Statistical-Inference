@@ -1,0 +1,18 @@
+{
+    "contents" : "\n# 1 -----------------------------------------------------------------------\n\npharm <- data.frame(baseline=c(140,138,150,148,135), week2=c(132,135,151,146,130))\nt.test(pharm$baseline,pharm$week2, alternative = \"two.sided\", paired=TRUE)\n\n\n# 2 -----------------------------------------------------------------------\n\nn = 9\nm = 1100\ns = 30\na = 0.05\nm+c(-1,1)*qt(1-(a/2),n-1)*s/sqrt(n)\n\n\n# 3 -----------------------------------------------------------------------\n\nbinom.test(x = 3, n = 4, p=.5, alternative=\"greater\")\n\n\n# 4 -----------------------------------------------------------------------\n\np = 1/100\np_ = 10/1787\nn=1787\nserror = sqrt(p*(1-p)/n)\ntest_z = (p-p_)/serror\n\npnorm(test_z, lower.tail=FALSE)\n\n\n# 5 -----------------------------------------------------------------------\n\nmean.diff = -3-1\ndf = (9 + 9 - 2)\nm_tr = -3\nm_pb = 1\ns_tr = 1.5\ns_pb = 1.8\npooled.var = (s_tr^2 * 9 + s_pb^2 * 9)/df\nse.diff = sqrt(pooled.var/9 + pooled.var/9)\nt.obt = mean.diff / se.diff\nt.obt\n\np.value = 2*pt(t.obt, df=df) #two tailed\np.value\n\n\n\n# 6, 7 ---------------------------------------------------------------------\n\npower.t.test(n=100, delta = .01, sd = .04, type = \"one.sample\", alt = \"one.sided\")$power\npower.t.test(power = .9, delta = .01, sd = .04, type=\"one.sample\", alt=\"one.sided\")$n\n",
+    "created" : 1452147537281.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1577750496",
+    "id" : "C6B8DFC3",
+    "lastKnownWriteTime" : 1452149709,
+    "path" : "~/Desktop/Statistical Inference/quiz4.R",
+    "project_path" : "quiz4.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

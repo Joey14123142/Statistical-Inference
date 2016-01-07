@@ -1,0 +1,18 @@
+{
+    "contents" : "\n# 1 -----------------------------------------------------------------------\n\nn <- 9\nmu <- 1100\nsigma <- 30\nx <- 0.95\n\nci <- mu + c(-1,1) * qt(x+(1-x)/2, n-1) * sigma / sqrt(n)\n\n\n# 2 -----------------------------------------------------------------------\n\nn <- 9\nmu <- -2\np <- 0.95\nupper <- 0\n(upper-mu)*sqrt(n)/qt(p+(1-p)/2,n-1)\n\n\n# 4 -----------------------------------------------------------------------\n\nn <- 10\n\nmnew <- 3\nvarnew <- 0.6\n\nmold <- 5\nvarold <- 0.68\n\np <- 0.95\n\npair.var <- (varnew + varold)/2\nci <- (mnew - mold) + c(-1, 1) * qt(p + (1-p)/2, 2*n-2) * sqrt(pair.var) * sqrt(2/n)\n\n\n# 7 -----------------------------------------------------------------------\n\ndiet.m <- -3\ndiet.var <- 1.5\nplace.m <- 1\nplace.var <- 1.8\np <- 0.9\nn <- 9\npair.var <- (diet.var^2 + place.var^2)/2\nci <- diet.m - place.m +c(-1,1)*qt(p + (1-p)/2, df=(n+n - 2))*sqrt(pair.var)*sqrt(2/n)\n\nmt <- -3\nmp <- 1\nst <- 1.5\nsp <- 1.8\nnt <- 9\nnp <- 9\np <- 0.9\npooled_variance <- ((nt-1)*st^2 + (np-1)*sp^2)/(nt + np - 2)\nci <- mt - mp + c(-1,1) * qt(p + (1-p)/2, df=(nt+np-2)) * sqrt(pooled_variance) * sqrt(1/nt + 1/np)\nci\n\n",
+    "created" : 1452122065890.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1499531048",
+    "id" : "F92F03DD",
+    "lastKnownWriteTime" : 1452147532,
+    "path" : "~/Desktop/Statistical Inference/quiz3.R",
+    "project_path" : "quiz3.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

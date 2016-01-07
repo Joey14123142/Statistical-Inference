@@ -1,0 +1,18 @@
+{
+    "contents" : "\n# 1 -----------------------------------------------------------------------\n\nlibrary(AppliedPredictiveModeling)\ndata(AlzheimerDisease)\n\nadData = data.frame(diagnosis,predictors)\ntrainIndex = createDataPartition(diagnosis, p = 0.50,list=FALSE)\ntraining = adData[trainIndex,]\ntesting = adData[-trainIndex,]\n\n\n# 2 -----------------------------------------------------------------------\n\nlibrary(AppliedPredictiveModeling)\ndata(concrete)\nlibrary(caret)\nset.seed(1000)\ninTrain = createDataPartition(mixtures$CompressiveStrength, p = 3/4)[[1]]\ntraining = mixtures[ inTrain,]\ntesting = mixtures[-inTrain,]\n\nlibrary(Hmisc)\n# ?cut2\nlibrary(dplyr)\ntraining <- mutate(training, index=1:nrow(training))\n\ncutIndex <- cut2(training$index, g=10)\nbreaks <- 10\npar(mfrow=c(8,1))\nfor(i in 1:ncol(training)){\n  x <- training[,i]\n  qplot(index, CompressiveStrength, data = training, color = cut2(x, g=breaks))\n}\n\n\n# 3 -----------------------------------------------------------------------\n\nhist(training$Superplasticizer, breaks = 20)\nhist(log(training$Superplasticizer+1), breaks = 20)\nsum(training$Superplasticizer==0)\nsum(training$Superplasticizer<0)\n\n\n# 4, 5 -----------------------------------------------------------------------\n\nlibrary(caret)\nlibrary(AppliedPredictiveModeling)\nset.seed(3433)\ndata(AlzheimerDisease)\nadData = data.frame(diagnosis,predictors)\ninTrain = createDataPartition(adData$diagnosis, p = 3/4)[[1]]\ntraining = adData[ inTrain,]\ntesting = adData[-inTrain,]\n\nIL_col_idx <- grep(\"^[Ii][Ll].*\", names(training))\npreObj <- preProcess(training[, IL_col_idx], method=c(\"center\", \"scale\", \"pca\"), thresh=0.9)\npreObj\n\nsubtrain <- training[, IL_col_idx]\nsubtrain$diagnosis <- training$diagnosis\ntest <- testing[ ,IL_col_idx]\ntest$diagnosis <- testing$diagnosis\nnonPCA <- train(diagnosis~., data = subtrain, method=\"glm\")\nnonPCA.pred <- confusionMatrix(test[,13],\n                               predict(nonPCA, test[,-13]))\npca.pre <- preProcess(subtrain[, -13], method=c('center', 'scale', 'pca'), thresh=0.8)\npca.train <- predict(pca.pre, subtrain[, -13])\npca.test <- predict(pca.pre, test[, -13])\n\npca <- train(subtrain$diagnosis~., data=pca.train, method=\"glm\")\npca.pred <- confusionMatrix(test[, 13], predict(pca, pca.test))\n\nnonPCA.pred\n\n",
+    "created" : 1452149724760.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2855912316",
+    "id" : "E97D02B7",
+    "lastKnownWriteTime" : 1452155200,
+    "path" : "~/Desktop/Practical ML/quiz2.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,18 @@
+{
+    "contents" : "\n# 1 -----------------------------------------------------------------------\n\nlibrary(AppliedPredictiveModeling)\ndata(segmentationOriginal)\nlibrary(caret)\n\ndt <- segmentationOriginal\ntrainIndex = createDataPartition(dt$Case, p = 0.50,list=FALSE)\ntraining = dt[trainIndex,]\ntesting = dt[-trainIndex,]\n\nset.seed(125)\n",
+    "created" : 1452155201670.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "807855653",
+    "id" : "3280737A",
+    "lastKnownWriteTime" : 1452155965,
+    "path" : "~/Desktop/Practical ML/quiz3.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
